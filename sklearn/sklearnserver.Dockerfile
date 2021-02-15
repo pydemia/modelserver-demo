@@ -1,15 +1,23 @@
 FROM python:3.7-slim
-LABEL maintainer="Youngju Kim yj.kim1@sk.com, Juyoung Jung jyjung16@sk.com"
+LABEL maintainer="pydemia@gmail.com"
 
 # RUN apt-get update && \
 #     apt-get install libgomp1 && \
 #     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
+RUN mkdir -p /workdir
+WORKDIR /workdir
+
 COPY sklearnserver sklearnserver
-COPY run_modelserver /usr/local/bin/run_modelserver
+COPY setup.py setup.py
+COPY requirements.txt requirements.txt
+COPY README.md README.md
+COPY run_sklearnserver /usr/local/bin/run_sklearnserver
 
 RUN pip install --upgrade pip && \
-    pip install -e ./sklearnserver && \
-    pip install -r ./sklearnserver/requirements.txt --use-feature=2020-resolver
+    pip install -e . && \
+    pip install -r ./requirements.txt
 
-ENTRYPOINT ["./run_modelserver"]
+RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+ENTRYPOINT ["./run_sklearnserver"]

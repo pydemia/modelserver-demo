@@ -14,7 +14,7 @@
 
 import os
 from kfserving.kfmodel_repository import KFModelRepository, MODEL_MOUNT_DIRS
-from sklearnserver import Model
+from sklearnserver.inferencer import SKLearnServingModel as Model
 
 
 class ModelRepository(KFModelRepository):

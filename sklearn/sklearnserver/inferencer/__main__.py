@@ -17,25 +17,42 @@ import logging
 import sys
 
 import kfserving
-from modelserver import Model, ModelRepository
+# from sklearnserver import SKLearnModel, ModelRepository
+from sklearnserver.inferencer import SKLearnServingModel as Model
+from sklearnserver.inferencer import ModelRepository
 
 DEFAULT_MODEL_NAME = "model"
 DEFAULT_LOCAL_MODEL_DIR = "/tmp/model"
+DEFAULT_MAX_BUFFER_SIZE = 104857600
 
 parser = argparse.ArgumentParser(parents=[kfserving.kfserver.parser])
-parser.add_argument('--model_dir', required=True,
-                    help='A URI pointer to the model binary')
-parser.add_argument('--model_name', default=DEFAULT_MODEL_NAME,
-                    help='The name that the model is served under.')
+parser.add_argument(
+    '--model_dir',
+    required=True,
+    help='A URI pointer to the model binary',
+)
+parser.add_argument(
+    '--model_name',
+    required=True,
+    default=DEFAULT_MODEL_NAME,
+    help='The name that the model is served under.',
+)
+parser.add_argument(
+    '--max_buffer_size',
+    default=DEFAULT_MAX_BUFFER_SIZE, type=int,
+    help='The max buffer size for tornado.',
+)
 
 # User Definition ============================================================
 
 DEFAULT_VALUE = ""
-parser.add_argument('--user_defined_arg', default=DEFAULT_VALUE,
-                    help='An user defined arguments for inference.')
+parser.add_argument(
+    '--user_defined_arg',
+    default=DEFAULT_VALUE,
+    help='An user defined arguments for inference.',
+)
 
 # ============================================================================
-
 
 args, _ = parser.parse_known_args()
 

@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .model import Model
-from .model_repository import ModelRepository
+from sklearnserver.inferencer.model import SKLearnServingModel
+from sklearnserver.inferencer.model_repository import ModelRepository

@@ -6,9 +6,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from .core import BaseModel
+from ._core import BaseModel
 from .preprocessor import prep_func
 from .postprocessor import post_func
+from . import config
 
 import os
 import joblib
@@ -21,16 +22,14 @@ from sklearn.pipeline import Pipeline
 from sklearn import ensemble
 
 
-class Model(BaseModel):
+__all__ = ['SKLearnModel']
 
-    def __init__(self, filepath=None):
-        super().__init__()
 
-    # def build(self, n_estimators, max_depth):
-    #     # self.model = ensemble.RandomForestClassifier(
-    #     #     n_estimators=n_estimators,
-    #     #     max_depth=max_depth,
-    #     # )
+class SKLearnModel(BaseModel):
+
+    def __init__(self, filepath=None, *args, **kwargs):
+        super().__init__(filepath=filepath, *args, **kwargs)
+        self.config = config
 
     def build(self, penalty='l2'):
         # sc = StandardScaler()

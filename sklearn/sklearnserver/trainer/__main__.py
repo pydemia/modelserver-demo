@@ -1,73 +1,59 @@
 
-# import numpy as np
-# from .model import Model
+import numpy as np
+from sklearnserver.trainer.model import SKLearnModel
 
 
-# # Load train & valid data
-# train_num = 200
-# train_x = np.random.rand(train_num, 10)
-# train_y = np.random.randint(2, size=(train_num, 1))
+# Load train & valid data
+train_record_num = 200
+train_x = np.random.rand(train_record_num, 10)
+train_y = np.random.randint(2, size=(train_record_num, 1))
 
-# print(train_x.shape, train_y.shape)
+print(f'train_x.shape: {train_x.shape}')
+print(f'train_y.shape: {train_y.shape}')
 
-# eval_num = 50
-# eval_x = np.random.rand(eval_num, 10)
-# eval_y = np.random.randint(2, size=(eval_num, 1))
+eval_record_num = 50
+eval_x = np.random.rand(eval_record_num, 10)
+eval_y = np.random.randint(2, size=(eval_record_num, 1))
 
-# print(eval_x.shape, eval_y.shape)
-
-
-# # Create a Model
-# INPUT_DIM = train_x.shape[1:]  # (10, )
-# model = Model()
+print(f'eval_x.shape: {eval_x.shape}')
+print(f'eval_y.shape: {eval_y.shape}')
 
 
-# # Create Datasets
-# NUM_EPOCHS = 10
-# BATCH_SIZE = 16
-
-# # Training
-# model.train(train_x, train_y)
+# Create a Model
+INPUT_DIM = train_x.shape[1:]  # (10, )
+model1 = SKLearnModel()
 
 
-# # Evaluation
-# eval_res = model.evaluate(eval_x, eval_y)
+# Create Datasets
+NUM_EPOCHS = 10
+BATCH_SIZE = 16
 
-# # Save
-# model.save('./0001', compress=1)
-
-
-# # Load & Reuse
-# model2 = Model(filepath='./0001')
-
-# eval_res2 = model2.evaluate(eval_x, eval_y)
-# print(eval_res)
-
-# # model2.train(train_x, train_y)
-
-# model2.predict(np.random.rand(1, 10))
+# Training
+model1.train(train_x, train_y)
 
 
-from sklearn.svm import SVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-X, y = make_classification(random_state=0)
-X_train, X_test, y_train, y_test = train_test_split(X, y,
-                                                    random_state=0)
-pipe1 = Pipeline([('scaler', StandardScaler()), ('svc', SVC())])
-# The pipeline can be used as any other estimator
-# and avoids leaking the test set into the train set
-pipe1.fit(X_train, y_train)
+# Evaluation
+eval_res1 = model1.evaluate(eval_x, eval_y)
 
-test1 = pipe1.score(X_test, y_test)
+# Save
+model1.save('./example_models/0001', compress=1)
 
-import joblib
-joblib.dump(pipe1, 'model.joblib')
 
-pipe2 = joblib.load('model.joblib')
-test2 = pipe2.score(X_test, y_test)
+# Load & Reuse
+model2 = SKLearnModel(filepath='./example_models/0001')
 
-print(test1)
-print(test2)
+eval_res2 = model2.evaluate(eval_x, eval_y)
+
+print(f'model1.evaluate: {eval_res1}')
+print(f'model2.evaluate: {eval_res2}')
+
+# model2.train(train_x, train_y)
+
+new_x = np.random.rand(1, 10)
+print(new_x)
+
+pred_res1 = model1.predict(new_x)
+pred_res2 = model2.predict(new_x)
+
+print(f'model1.predict: {pred_res1}')
+print(f'model2.predict: {pred_res2}')

@@ -18,13 +18,13 @@ import numpy as np
 import os
 from typing import Dict
 
-from modelserver import trainer
+from sklearnserver import trainer
 
 MODEL_BASENAME = "model"
 MODEL_EXTENSIONS = [".joblib", ".pkl", ".pickle"]
 
 
-class Model(kfserving.KFModel):  # pylint:disable=c-extension-no-member
+class SKLearnServingModel(kfserving.KFModel):  # pylint:disable=c-extension-no-member
     def __init__(self, name: str, model_dir: str):
         super().__init__(name)
         self.name = name
@@ -35,19 +35,21 @@ class Model(kfserving.KFModel):  # pylint:disable=c-extension-no-member
         model_path = kfserving.Storage.download(self.model_dir)
         
         # Scikit-learn: joblib, pkl, pickle
-        paths = [os.path.join(model_path, MODEL_BASENAME + model_extension)
-                 for model_extension in MODEL_EXTENSIONS]
-        for path in paths:
-            if os.path.exists(path):
+        # paths = [os.path.join(model_path, MODEL_BASENAME + model_extension)
+        #          for model_extension in MODEL_EXTENSIONS]
+        # for path in paths:
+        #     if os.path.exists(path):
 
-                self._model = joblib.load(path)
+        #         self._model = joblib.load(path)
 
-                self.ready = True
-                break
-        
+        #         self.ready = True
+        #         break
+        self._model = trainer.SKLearnModel(
+            filepath=os.path.join(model_path, MODEL_BASENAME + ".joblib"))
+
         # Tensorflow:
         model_num = '0001'
-        self._model = trainer.Model(filepath=os.path.join(model_path, model_num))
+        # self._model = trainer.Model(filepath=os.path.join(model_path, model_num))
         self.ready = True
 
         return self.ready

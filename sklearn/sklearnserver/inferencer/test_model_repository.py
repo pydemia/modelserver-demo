@@ -14,9 +14,9 @@
 
 import os
 import pytest
-from modelserver import ModelRepository
+from sklearnserver.inferencer import ModelRepository
 
-_MODEL_DIR = os.path.join(os.path.dirname(__file__), "example_models")
+_MODEL_DIR = os.path.join(os.path.dirname(__file__), "../../", "example_models")
 JOBLIB_FILE_DIR = os.path.join(_MODEL_DIR, "joblib")
 PICKLE_FILE_DIRS = [os.path.join(_MODEL_DIR, "pkl"), os.path.join(_MODEL_DIR, "pickle")]
 INVALID_MODEL_DIR = os.path.join(os.path.dirname(__file__), "models_not_exist")

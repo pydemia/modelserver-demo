@@ -3,6 +3,9 @@ from functools import wraps
 import numpy as np
 
 
+__all__ = ['BaseModel']
+
+
 # def _preprocess(inputs):
 #     return inputs
 
@@ -26,7 +29,6 @@ import numpy as np
 
 class BaseModel(object):
     def __init__(self,  filepath=None, *args, **kwargs):
-        super().__init__()
         if filepath:
             self.load(filepath)
         else:
