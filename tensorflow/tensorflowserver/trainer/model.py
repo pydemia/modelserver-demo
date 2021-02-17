@@ -46,12 +46,12 @@ def input_dataset_fn(features, labels, shuffle, num_epochs, batch_size):
 
 class Model(BaseModel):
 
-    def __init__(self, input_dim=None, learning_rate=None, filepath=None):
+    def __init__(self, input_dim=None, learning_rate=None, dirpath=None):
 
         self.INPUT_DIM = None
 
-        if filepath:
-            self.load(filepath)
+        if dirpath:
+            self.load(dirpath)
         elif input_dim:
             if learning_rate is None:
                 raise Exception(
@@ -59,7 +59,7 @@ class Model(BaseModel):
                 )
             self.build(input_dim, learning_rate)
         else:
-            raise Exception("'input_dim' or 'filepath' must be given.")
+            raise Exception("'input_dim' or 'dirpath' must be given.")
 
     def build(self, input_dim, learning_rate):
         self.INPUT_DIM = input_dim
@@ -103,18 +103,18 @@ class Model(BaseModel):
     def evaluate(self, *args, **kwargs):
         return self.model.evaluate(*args, **kwargs)
 
-    def save(self, filepath,
+    def save(self, dirpath,
              overwrite=True, include_optimizer=True,
              *args, **kwargs):
-        self.model.save(filepath,
+        self.model.save(dirpath,
                         overwrite=overwrite,
                         include_optimizer=include_optimizer,
                         save_format='tf',
                         *args, **kwargs)
 
-    def load(self, filepath, *args, **kwargs):
+    def load(self, dirpath, *args, **kwargs):
         self.model = tf.keras.models.load_model(
-            filepath, *args, **kwargs
+            dirpath, *args, **kwargs
         )
         self.INPUT_DIM = self.model.input_shape[1:]
 

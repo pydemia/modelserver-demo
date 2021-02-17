@@ -28,9 +28,9 @@ __all__ = ['BaseModel']
 #     return profiler
 
 class BaseModel(object):
-    def __init__(self,  filepath=None, *args, **kwargs):
-        if filepath:
-            self.load(filepath)
+    def __init__(self,  dirpath=None, *args, **kwargs):
+        if dirpath:
+            self.load(dirpath)
         else:
             try:
                 self.build(*args, **kwargs)
@@ -55,10 +55,10 @@ class BaseModel(object):
     def predict(self, X, *args, **kwargs):
         pass
 
-    def save(self, filepath, *args, **kwargs):
+    def save(self, dirpath, *args, **kwargs):
         pass
 
-    def load(self, filepath, *args, **kwargs):
+    def load(self, dirpath, *args, **kwargs):
         pass
 
 

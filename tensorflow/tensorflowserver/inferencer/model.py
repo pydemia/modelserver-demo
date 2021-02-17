@@ -47,7 +47,7 @@ class Model(kfserving.KFModel):  # pylint:disable=c-extension-no-member
         
         # Tensorflow:
         model_num = '0001'
-        self._model = trainer.Model(filepath=os.path.join(model_path, model_num))
+        self._model = trainer.Model(dirpath=os.path.join(model_path, model_num))
         self.ready = True
 
         return self.ready

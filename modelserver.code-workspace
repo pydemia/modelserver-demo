@@ -1,0 +1,45 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Python: sklearnserver.trainer",
+				"type": "python",
+				"request": "launch",
+				"cwd": "${workspaceFolder}/sklearn",
+				"module": "sklearnserver.trainer"
+			},
+			{
+				"name": "Python: sklearnserver.inferencer",
+				"type": "python",
+				"request": "launch",
+				// "program": "${file}",
+				"cwd": "${workspaceFolder}/sklearn",
+				"module": "sklearnserver.inferencer",
+				"args": [
+					"--model_dir='./0001'"
+				]
+			},
+			{
+				"name": "Python: tensorflowserver.trainer",
+				"type": "python",
+				"request": "launch",
+				"cwd": "${workspaceFolder}/tensorflow",
+				"module": "tensorflowserver.trainer"
+			},
+			{
+				"name": "Python: tensorflowserver.inferencer",
+				"type": "python",
+				"request": "launch",
+				"cwd": "${workspaceFolder}/tensorflow",
+				"module": "tensorflowserver.inferencer"
+			}
+		]
+	}
+}

@@ -40,7 +40,7 @@ model1.save('./example_models/0001', compress=1)
 
 
 # Load & Reuse
-model2 = SKLearnModel(filepath='./example_models/0001')
+model2 = SKLearnModel(dirpath='./example_models/0001')
 
 eval_res2 = model2.evaluate(eval_x, eval_y)
 

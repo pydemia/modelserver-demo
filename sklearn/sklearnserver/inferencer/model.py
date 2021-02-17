@@ -18,10 +18,7 @@ import numpy as np
 import os
 from typing import Dict
 
-from sklearnserver import trainer
-
-MODEL_BASENAME = "model"
-MODEL_EXTENSIONS = [".joblib", ".pkl", ".pickle"]
+from sklearnserver.trainer.model import SKLearnModel
 
 
 class SKLearnServingModel(kfserving.KFModel):  # pylint:disable=c-extension-no-member
@@ -44,12 +41,12 @@ class SKLearnServingModel(kfserving.KFModel):  # pylint:disable=c-extension-no-m
 
         #         self.ready = True
         #         break
-        self._model = trainer.SKLearnModel(
-            filepath=os.path.join(model_path, MODEL_BASENAME + ".joblib"))
+        self._model = SKLearnModel(
+            dirpath=os.path.join(model_path))
 
         # Tensorflow:
         model_num = '0001'
-        # self._model = trainer.Model(filepath=os.path.join(model_path, model_num))
+        # self._model = trainer.Model(dirpath=os.path.join(model_path, model_num))
         self.ready = True
 
         return self.ready

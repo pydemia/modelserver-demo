@@ -5,6 +5,11 @@ LABEL maintainer="pydemia@gmail.com"
 #     apt-get install libgomp1 && \
 #     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
+ENV MODEL_NAME="model"
+ENV HTTP_PORT=8080
+ENV GRPC_PORT=8081
+ENV MODEL_DIR="/mnt/models"
+
 RUN mkdir -p /workdir
 WORKDIR /workdir
 
@@ -20,4 +25,4 @@ RUN pip install --upgrade pip && \
 
 RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
-ENTRYPOINT ["./run_sklearnserver"]
+ENTRYPOINT ["run_sklearnserver"]

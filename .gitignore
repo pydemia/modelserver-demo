@@ -1,6 +1,6 @@
 # User-defined
-*.code-workspace
-*.vscode
+# *.code-workspace
+.vscode
 
 
 # Byte-compiled / optimized / DLL files

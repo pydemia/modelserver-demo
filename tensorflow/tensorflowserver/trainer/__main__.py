@@ -58,7 +58,7 @@ model.save('./0001', overwrite=True)
 
 
 # Load & Reuse
-model2 = Model(filepath='./0001')
+model2 = Model(dirpath='./0001')
 
 model2.INPUT_DIM
 model2.model.summary()
